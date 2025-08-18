@@ -5,8 +5,8 @@ Main structure to control program
 # Third-party
 import pygame as pg
 
-HEIGHT = 1000
-WIDTH = 1000
+HEIGHT = 800
+WIDTH = 800
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -37,6 +37,15 @@ else:
 screen.blit(background, (0, 0))
 pg.display.flip()
 
+
+# def draw_grid():
+#     """
+#     Draw grid
+#     """
+
+#     for i in range(HEIGHT + 1):
+
+
 while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -50,12 +59,20 @@ while running:
 
     screen.blit(background, (0, 0))
     pg.draw.circle(screen, "yellow", centre, 5)
+
+    for i in range(0, HEIGHT + 1, 20):
+        pg.draw.line(screen, (60, 60, 0, 0.5), (0, i), (WIDTH, i))
+
+    for i in range(0, WIDTH + 1, 20):
+        pg.draw.line(screen, (60, 60, 0, 0.5), (i, 0), (i, HEIGHT))
+
     pg.draw.line(
-        screen, "yellow", (screen.get_width()/2, 0),
+        screen, (127, 127, 0, 1), (screen.get_width()/2, 0),
         (screen.get_width()/2, screen.get_height()))
     pg.draw.line(
-        screen, "yellow", (0, screen.get_height()/2),
+        screen, (127, 127, 0, 1), (0, screen.get_height()/2),
         (screen.get_width(), screen.get_height()/2))
+
     # Flip the display things on screen
     pg.display.flip()
 
