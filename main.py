@@ -5,8 +5,11 @@ Main structure to control program
 # Third-party
 import pygame as pg
 
+HEIGHT = 1000
+WIDTH = 1000
+
 pg.init()
-screen = pg.display.set_mode((1280, 720))
+screen = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("Inverse Kinematics - Cyclic Coordinate Descent")
 clock = pg.time.Clock()
 running = True
@@ -17,6 +20,8 @@ background = pg.Surface(screen.get_size())
 background = background.convert()
 # Background color
 background.fill((0, 0, 0))
+
+centre = pg.Vector2(screen.get_width()/2, screen.get_height()/2)
 
 if not pg.font:
     print("Warning, fonts disabled.")
@@ -44,6 +49,14 @@ while running:
     # pg.draw
 
     screen.blit(background, (0, 0))
+    pg.draw.circle(screen, "yellow", centre, 5)
+    pg.draw.line(
+        screen, "yellow", (screen.get_width()/2, 0),
+        (screen.get_width()/2, screen.get_height()))
+    pg.draw.line(
+        screen, "yellow", (0, screen.get_height()/2),
+        (screen.get_width(), screen.get_height()/2))
+    # Flip the display things on screen
     pg.display.flip()
 
     # Set FPS=60
