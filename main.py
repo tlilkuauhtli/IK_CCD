@@ -2,8 +2,18 @@
 Main structure to control program
 """
 
+# Standard library
+import logging
+
 # Third-party
 import pygame as pg
+
+# Local
+from src.scene import Scene
+
+logging.basicConfig(format="ik_ccd :: %(asctime)s :: %(message)s")
+logger = logging.getLogger("Main")
+
 
 HEIGHT = 800
 WIDTH = 800
@@ -20,30 +30,24 @@ background = pg.Surface(screen.get_size())
 background = background.convert()
 # Background color
 background.fill((0, 0, 0))
-
 centre = pg.Vector2(screen.get_width()/2, screen.get_height()/2)
+
+scene = Scene(width=WIDTH, height=HEIGHT, screen=screen)
+
 
 if not pg.font:
     print("Warning, fonts disabled.")
 else:
-    font = pg.font.Font(None, 25)
+    font = pg.font.Font(None, 20)
     # Text color
     text = font.render("Body data:", True, (255, 255, 255))
-    text_pos = text.get_rect(x=10, y=10)
+    text_pos = text.get_rect(x=20, y=20)
     background.blit(text, text_pos)
 
 
 # Display background
 screen.blit(background, (0, 0))
 pg.display.flip()
-
-
-# def draw_grid():
-#     """
-#     Draw grid
-#     """
-
-#     for i in range(HEIGHT + 1):
 
 
 while running:
@@ -58,25 +62,14 @@ while running:
     # pg.draw
 
     screen.blit(background, (0, 0))
-    pg.draw.circle(screen, "yellow", centre, 5)
 
-    for i in range(0, HEIGHT + 1, 20):
-        pg.draw.line(screen, (60, 60, 0, 0.5), (0, i), (WIDTH, i))
-
-    for i in range(0, WIDTH + 1, 20):
-        pg.draw.line(screen, (60, 60, 0, 0.5), (i, 0), (i, HEIGHT))
-
-    pg.draw.line(
-        screen, (127, 127, 0, 1), (screen.get_width()/2, 0),
-        (screen.get_width()/2, screen.get_height()))
-    pg.draw.line(
-        screen, (127, 127, 0, 1), (0, screen.get_height()/2),
-        (screen.get_width(), screen.get_height()/2))
+    scene.draw_grid(color=(60, 60, 0, 0.5))
+    scene.draw_main_axes(color=(127, 127, 0, 1), centre=centre)
 
     # Flip the display things on screen
     pg.display.flip()
 
-    # Set FPS=60
+    # Set FPS=60s
     # Delta time in seconds since last frame
     delta_time = clock.tick(60) / 1000
 
