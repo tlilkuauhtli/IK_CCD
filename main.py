@@ -7,12 +7,15 @@ import logging
 
 # Third-party
 import pygame as pg
+from pygame.locals import *
 
 # Local
 from src.scene import Scene
+from src.body import Body
 
 logging.basicConfig(format="ik_ccd :: %(asctime)s :: %(message)s")
 logger = logging.getLogger("Main")
+logger.setLevel(logging.DEBUG)
 
 
 HEIGHT = 800
@@ -30,10 +33,13 @@ background = pg.Surface(screen.get_size())
 background = background.convert()
 # Background color
 background.fill((0, 0, 0))
-centre = pg.Vector2(screen.get_width()/2, screen.get_height()/2)
+centre = pg.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
+logger.info(
+    "Centre: %s - Type: %s - Type: %s, dir: %s",
+    centre, type(centre), type(centre[0]), dir(centre))
 scene = Scene(width=WIDTH, height=HEIGHT, screen=screen)
-
+body = Body(screen, centre)
 
 if not pg.font:
     logger.warning("Fonts disabled.")
@@ -55,43 +61,53 @@ while running:
         if event.type == pg.QUIT:
             running = False
 
+        if event.type == MOUSEBUTTONDOWN:
+            logger.info("Event: %s, Type: %s", event, event.type)
+        # elif event.type == MOUSEWHEEL:
+        #     logger.info("Event: %s", event)
+
+
+    # logger.info("Mouse pos: %s", pg.mouse.get_pos())
+    # logger.info("Pressed: %s", pg.mouse.get_pressed())
+
     # Clear screen
     screen.fill("black")
 
     # More instructions here
-    # pg.draw
 
     screen.blit(background, (0, 0))
 
     scene.draw_grid(color=(60, 60, 0, 0.5))
     scene.draw_main_axes(color=(127, 127, 0, 1), centre=centre)
 
-    pg.draw.line(
-        screen, "red",
-        (screen.get_width() / 2, screen.get_height() / 2),
-        (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110))
+    body.draw_body()
 
-    pg.draw.circle(
-        screen, "orange",
-        (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110), 5)
+    # pg.draw.line(
+    #     screen, "red",
+    #     (screen.get_width() / 2, screen.get_height() / 2),
+    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110))
 
-    pg.draw.line(
-        screen, "red",
-        (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110),
-        (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150))
+    # pg.draw.circle(
+    #     screen, "orange",
+    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110), 5)
 
-    pg.draw.circle(
-        screen, "orange",
-        (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150), 5)
+    # pg.draw.line(
+    #     screen, "red",
+    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110),
+    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150))
 
-    pg.draw.line(
-        screen, "red",
-        (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150),
-        (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180))
+    # pg.draw.circle(
+    #     screen, "orange",
+    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150), 5)
 
-    pg.draw.circle(
-        screen, "orange",
-        (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180), 5)
+    # pg.draw.line(
+    #     screen, "red",
+    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150),
+    #     (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180))
+
+    # pg.draw.circle(
+    #     screen, "orange",
+    #     (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180), 5)
 
     # Flip the display things on screen
     pg.display.flip()
@@ -99,5 +115,6 @@ while running:
     # Set FPS=60s
     # Delta time in seconds since last frame
     delta_time = clock.tick(60) / 1000
+    # logger.info("Delta time: %s", delta_time)
 
 pg.quit()

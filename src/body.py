@@ -3,7 +3,8 @@ Body
 """
 
 # Standard library
-from dataclasses import dataclass
+# from enum import Enum
+from dataclasses import dataclass, field
 
 # Third-party
 import pygame as pg
@@ -17,7 +18,7 @@ class Body:
 
     screen: pg.surface.Surface
     centre: pg.math.Vector2
-    link_list: list = []
+    link_list: list = field(default_factory=list)
 
     def __post_init__(self):
         """
@@ -34,8 +35,17 @@ class Body:
         Draw body links
         """
 
-        for link in self.link_list:
-            pg.draw.line(
-                self.screen, "red",
-                (self.screen.get_width() / 2, self.screen.get_height() / 2),
-                (self.screen.get_width() / 2 + 50, self.screen.get_height() / 2 - 110))
+        first: tuple = None
+        for index, coord in enumerate(self.link_list):
+            if first is None:
+                first = coord
+                continue
+
+            pg.draw.circle(self.screen, "orange", first, 5)
+            pg.draw.line(self.screen, "red", first, coord)
+
+            if index == len(self.link_list) - 1:
+                pg.draw.circle(self.screen, "orange", coord, 5)
+
+            first = coord
+

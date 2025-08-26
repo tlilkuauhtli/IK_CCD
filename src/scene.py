@@ -12,6 +12,7 @@ import pygame as pg
 
 logger = logging.getLogger("Scene")
 
+
 @dataclass
 class Scene:
     """
