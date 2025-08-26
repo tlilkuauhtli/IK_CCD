@@ -82,33 +82,6 @@ while running:
 
     body.draw_body()
 
-    # pg.draw.line(
-    #     screen, "red",
-    #     (screen.get_width() / 2, screen.get_height() / 2),
-    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110))
-
-    # pg.draw.circle(
-    #     screen, "orange",
-    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110), 5)
-
-    # pg.draw.line(
-    #     screen, "red",
-    #     (screen.get_width() / 2 + 50, screen.get_height() / 2 - 110),
-    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150))
-
-    # pg.draw.circle(
-    #     screen, "orange",
-    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150), 5)
-
-    # pg.draw.line(
-    #     screen, "red",
-    #     (screen.get_width() / 2 + 10, screen.get_height() / 2 - 150),
-    #     (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180))
-
-    # pg.draw.circle(
-    #     screen, "orange",
-    #     (screen.get_width() / 2 - 20, screen.get_height() / 2 - 180), 5)
-
     # Flip the display things on screen
     pg.display.flip()
 
