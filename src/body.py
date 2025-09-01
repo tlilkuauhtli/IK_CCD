@@ -35,17 +35,6 @@ class Body:
         Draw body links
         """
 
-        first: tuple = None
-        for index, coord in enumerate(self.link_list):
-            if first is None:
-                first = coord
-                continue
-
-            pg.draw.circle(self.screen, "orange", first, 5)
-            pg.draw.line(self.screen, "red", first, coord)
-
-            if index == len(self.link_list) - 1:
-                pg.draw.circle(self.screen, "orange", coord, 5)
-
-            first = coord
-
+        pg.draw.lines(self.screen, "red", False, self.link_list)
+        for coord in self.link_list:
+            pg.draw.circle(self.screen, "orange", coord, 5)
