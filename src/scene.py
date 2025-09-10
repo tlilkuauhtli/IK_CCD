@@ -57,7 +57,7 @@ class Scene:
             self.screen, color, (self.screen.get_width() / 2, 0),
             (self.screen.get_width() / 2, self.screen.get_height()))
         pg.draw.line(
-            self.screen, (127, 127, 0, 1), (0, self.screen.get_height() / 2),
+            self.screen, color, (0, self.screen.get_height() / 2),
             (self.screen.get_width(), self.screen.get_height() / 2))
 
         pg.draw.circle(self.screen, "yellow", centre, 5)
