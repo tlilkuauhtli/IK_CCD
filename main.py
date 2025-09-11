@@ -7,7 +7,8 @@ import logging
 
 # Third-party
 import pygame as pg
-from pygame.locals import *
+import pygame.locals as pg_locals
+
 
 # Local
 from src.scene import Scene
@@ -55,17 +56,21 @@ else:
 screen.blit(background, (0, 0))
 pg.display.flip()
 
+target: tuple[int, int]
 
 while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
 
-        if event.type == MOUSEBUTTONDOWN:
-            logger.info("Event: %s, Type: %s", event, event.type)
-        # elif event.type == MOUSEWHEEL:
-        #     logger.info("Event: %s", event)
+        if event.type == pg_locals.MOUSEBUTTONDOWN:
+            logger.info("Event: %s, Type: %s", event.pos, event.type)
+        if event.type == pg_locals.MOUSEBUTTONUP:
+            target = event.pos
+            logger.info("Target pos: %s", target)
 
+        # elif event.type == pg_locals.MOUSEWHEEL:
+        #     logger.info("Event: %s", event)
 
     # logger.info("Mouse pos: %s", pg.mouse.get_pos())
     # logger.info("Pressed: %s", pg.mouse.get_pressed())
@@ -77,8 +82,8 @@ while running:
 
     screen.blit(background, (0, 0))
 
-    scene.draw_grid(color=(60, 60, 0, 0.5))
-    scene.draw_main_axes(color=(127, 127, 0, 1), centre=centre)
+    scene.draw_grid(color=pg.Color(60, 60, 60, 0))
+    scene.draw_main_axes(color=pg.Color(127, 127, 0, 255), centre=centre)
 
     body.draw_body()
 
