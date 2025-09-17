@@ -26,9 +26,12 @@ class Body:
         """
 
         self.link_list.append(self.centre)
-        self.link_list.append((self.centre.x + 50, self.centre.y - 110))
-        self.link_list.append((self.centre.x + 10, self.centre.y - 150))
-        self.link_list.append((self.centre.x - 20, self.centre.y - 180))
+        self.link_list.append(
+            pg.math.Vector2(self.centre.x + 50, self.centre.y - 110))
+        self.link_list.append(
+            pg.math.Vector2(self.centre.x + 10, self.centre.y - 150))
+        self.link_list.append(
+            pg.math.Vector2(self.centre.x - 20, self.centre.y - 180))
 
     def draw_body(self):
         """
